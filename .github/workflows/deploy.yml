@@ -27,11 +27,8 @@ jobs:
           git config --global user.name "GitHub Deploy Action"
           
           # Add the Hugging Face Space git remote as 'hf'
-          # REPLACE 'YOUR_HF_USERNAME' AND 'YOUR_SPACE_NAME' in your repository!
-          # For example, if your username is 'sadeep' and space is 'ceylon-gold-rate':
-          # git remote add hf https://sadeep:$HF_TOKEN@huggingface.co/spaces/sadeep/ceylon-gold-rate
-          
-          git remote add hf https://YOUR_HF_USERNAME:$HF_TOKEN@huggingface.co/spaces/YOUR_HF_USERNAME/YOUR_SPACE_NAME
+          # Sync to your Hugging Face Space repository
+          git remote add hf https://dwssp:$HF_TOKEN@huggingface.co/spaces/dwssp/Ceylon-Gold-Rate
           
           # Force push the main branch to the Hugging Face Space
           git push --force hf HEAD:main
