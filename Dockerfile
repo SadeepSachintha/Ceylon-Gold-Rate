@@ -25,4 +25,3 @@ RUN touch /var/www/html/rates_cache.json && \
 
 # Start Apache in the foreground
 CMD ["apache2-foreground"]
-```
