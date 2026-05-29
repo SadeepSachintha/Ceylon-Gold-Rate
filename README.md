@@ -1,3 +1,13 @@
+---
+title: Ceylon Gold Rate
+emoji: 🪙
+colorFrom: gold
+colorTo: yellow
+sdk: docker
+app_port: 7860
+pinned: false
+---
+
 # 🪙 Ceylon Gold Price Tracker (Sri Lanka)
 
 A premium, responsive, real-time web application to check and estimate 22K, 24K, 21K, and 18K gold prices in Sri Lanka. It features a sophisticated glassmorphic design, persistent Dark/Light theme toggles, interactive historical trend lines, an intelligent jewelry cost calculator, and a server-side web scraper with automated caching.
