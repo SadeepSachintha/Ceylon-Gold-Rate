@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Check live 22K & 24K gold rates in Sri Lanka. Instant gold price per gram and sovereign (pavan) in Sri Lankan Rupees (LKR). Interactive calculator & historical trend charts.">
+    <meta name="keywords" content="gold price in sri lanka, gold rate lkr, 22k gold price sri lanka, 24k gold rate, gold sovereign price, pavan gold price, ceylon gold rate">
+    <meta name="author" content="Ceylon Gold Rate">
+    
+    <!-- Open Graph / Social Media Meta -->
+    <meta property="og:title" content="Ceylon Gold Rate | Live Gold Prices in Sri Lanka">
+    <meta property="og:description" content="Check live 22K & 24K gold rates in Sri Lanka. Instant gold price per gram and sovereign (pavan) in Sri Lankan Rupees (LKR).">
+    <meta property="og:type" content="website">
+    
+    <title>Ceylon Gold Rate | Live 22K & 24K Gold Price in Sri Lanka</title>
+    
+    <!-- Favicon (Unicode Gold Emoji SVG) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🪙</text></svg>">
+    
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- Icons (FontAwesome) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" crossorigin="anonymous">
+    
+    <!-- Chart.js CDN for beautiful historical charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+    <!-- Premium Navigation Header -->
+    <header class="app-header">
+        <div class="container nav-container">
+            <div class="brand">
+                <span class="brand-icon">🪙</span>
+                <div>
+                    <h1 class="brand-name">Ceylon Gold <span class="gold-gradient-text">Rate</span></h1>
+                    <span class="brand-sub">Sri Lanka Market Feed</span>
+                </div>
+            </div>
+            
+            <div class="nav-actions">
+                <div class="ticker-status" id="connection-status" aria-label="Ticker updates status">
+                    <span class="pulse-dot"></span>
+                    <span>Live Market Feed</span>
+                </div>
+                
+                <button class="btn-theme-toggle" id="theme-toggle-btn" aria-label="Toggle light and dark theme">
+                    <i class="fa-solid fa-sun sun-icon"></i>
+                    <i class="fa-solid fa-moon moon-icon"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="container">
+        
+        <!-- Hero Spotlight Section -->
+        <section class="hero-section">
+            <h2 class="hero-title">Sri Lanka <span class="gold-gradient-text">Gold Price</span> Tracker</h2>
+            <p class="hero-subtitle">Get transparent, real-time retail gold market rates across Colombo, Kandy, and Galle in Sri Lankan Rupees (LKR).</p>
+            
+            <div class="rates-spotlight">
+                <!-- 22K Spotlight Card (Most popular in Sri Lanka for jewelry) -->
+                <article class="spotlight-card" id="spotlight-22k">
+                    <div class="spotlight-header">
+                        <span class="karat-badge">22K Gold (916)</span>
+                        <div class="trend-badge up" id="trend-22k">
+                            <i class="fa-solid fa-caret-up"></i>
+                            <span class="trend-percent" id="pct-22k">+0.15%</span>
+                        </div>
+                    </div>
+                    <div class="spotlight-price-box">
+                        <span class="price-label">Price per Sovereign (8g)</span>
+                        <div class="price-val" id="sov-price-22k">Rs. 353,200</div>
+                        <span class="price-sub" id="gram-price-22k">Rs. 44,150 per gram</span>
+                    </div>
+                    <div class="card-metrics">
+                        <div>
+                            <div class="metric-item-label">Yesterday</div>
+                            <div class="metric-item-val" id="prev-sov-22k">Rs. 352,670</div>
+                        </div>
+                        <div>
+                            <div class="metric-item-label">Daily Change</div>
+                            <div class="metric-item-val" id="diff-sov-22k">+Rs. 530</div>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- 24K Spotlight Card (Pure gold bars and investments) -->
+                <article class="spotlight-card" id="spotlight-24k">
+                    <div class="spotlight-header">
+                        <span class="karat-badge">24K Gold (Pure)</span>
+                        <div class="trend-badge up" id="trend-24k">
+                            <i class="fa-solid fa-caret-up"></i>
+                            <span class="trend-percent" id="pct-24k">+0.12%</span>
+                        </div>
+                    </div>
+                    <div class="spotlight-price-box">
+                        <span class="price-label">Price per Sovereign (8g)</span>
+                        <div class="price-val" id="sov-price-24k">Rs. 385,200</div>
+                        <span class="price-sub" id="gram-price-24k">Rs. 48,150 per gram</span>
+                    </div>
+                    <div class="card-metrics">
+                        <div>
+                            <div class="metric-item-label">Yesterday</div>
+                            <div class="metric-item-val" id="prev-sov-24k">Rs. 384,740</div>
+                        </div>
+                        <div>
+                            <div class="metric-item-label">Daily Change</div>
+                            <div class="metric-item-val" id="diff-sov-24k">+Rs. 460</div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            
+            <div style="display: flex; justify-content: center; align-items: center; gap: 16px; flex-wrap: wrap;">
+                <button class="btn-refresh" id="refresh-btn" aria-label="Refresh latest rates">
+                    <i class="fa-solid fa-arrows-rotate"></i>
+                    <span>Refresh Market Rates</span>
+                </button>
+                <span style="font-size: 0.825rem; color: var(--text-secondary);" id="last-updated-text">
+                    Last updated: Just now
+                </span>
+            </div>
+        </section>
+
+        <!-- Comprehensive Pricing Grid Section -->
+        <section style="margin-bottom: 4rem;">
+            <div class="section-header-flex">
+                <h3 class="section-title">Comprehensive Market Tiers</h3>
+                
+                <div class="segmented-control" role="tablist" aria-label="Gold price display unit">
+                    <button class="control-option active" id="toggle-gram" role="tab" aria-selected="true">
+                        Per Gram (1g)
+                    </button>
+                    <button class="control-option" id="toggle-sovereign" role="tab" aria-selected="false">
+                        Per Sovereign (8g)
+                    </button>
+                </div>
+            </div>
+
+            <div class="pricing-grid">
+                <!-- 24K Tier -->
+                <div class="pricing-card">
+                    <div class="pricing-card-header">
+                        <h4 class="pricing-card-karat">24K</h4>
+                        <span class="pricing-card-purity">99.9% Pure</span>
+                    </div>
+                    <div class="pricing-card-price" id="grid-price-24k">Rs. 48,150</div>
+                    <div class="pricing-card-footer">
+                        <span>LKR / unit</span>
+                        <span id="grid-label-24k">Per Gram</span>
+                    </div>
+                </div>
+
+                <!-- 22K Tier -->
+                <div class="pricing-card">
+                    <div class="pricing-card-header">
+                        <h4 class="pricing-card-karat">22K</h4>
+                        <span class="pricing-card-purity">91.6% (916)</span>
+                    </div>
+                    <div class="pricing-card-price" id="grid-price-22k">Rs. 44,150</div>
+                    <div class="pricing-card-footer">
+                        <span>LKR / unit</span>
+                        <span id="grid-label-22k">Per Gram</span>
+                    </div>
+                </div>
+
+                <!-- 21K Tier -->
+                <div class="pricing-card">
+                    <div class="pricing-card-header">
+                        <h4 class="pricing-card-karat">21K</h4>
+                        <span class="pricing-card-purity">87.5% Pure</span>
+                    </div>
+                    <div class="pricing-card-price" id="grid-price-21k">Rs. 42,140</div>
+                    <div class="pricing-card-footer">
+                        <span>LKR / unit</span>
+                        <span id="grid-label-21k">Per Gram</span>
+                    </div>
+                </div>
+
+                <!-- 18K Tier -->
+                <div class="pricing-card">
+                    <div class="pricing-card-header">
+                        <h4 class="pricing-card-karat">18K</h4>
+                        <span class="pricing-card-purity">75.0% Pure</span>
+                    </div>
+                    <div class="pricing-card-price" id="grid-price-18k">Rs. 36,110</div>
+                    <div class="pricing-card-footer">
+                        <span>LKR / unit</span>
+                        <span id="grid-label-18k">Per Gram</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Dynamic Calculators & Trends -->
+        <section class="features-grid">
+            
+            <!-- Historical Graph Card -->
+            <div class="dashboard-card" id="trend-analysis-card">
+                <div class="section-header-flex" style="margin-bottom: 1.5rem;">
+                    <div class="card-title-area">
+                        <h3 class="section-title" style="font-size: 1.5rem;">Historical Trends</h3>
+                        <p style="font-size: 0.825rem; color: var(--text-secondary); margin-top: 4px;">
+                            Gold value history fluctuations (LKR/Gram)
+                        </p>
+                    </div>
+                    
+                    <div class="segmented-control" role="tablist" aria-label="Historical chart period">
+                        <button class="control-option active" id="chart-7d" role="tab" aria-selected="true">7D</button>
+                        <button class="control-option" id="chart-30d" role="tab" aria-selected="false">30D</button>
+                        <button class="control-option" id="chart-1y" role="tab" aria-selected="false">1Y</button>
+                    </div>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="goldHistoryChart"></canvas>
+                </div>
+            </div>
+
+            <!-- Intelligent Interactive Calculator -->
+            <div class="dashboard-card" id="calculator-card">
+                <div class="card-title-area">
+                    <h3 class="section-title" style="font-size: 1.5rem;">Gold Value Calculator</h3>
+                    <p style="font-size: 0.825rem; color: var(--text-secondary); margin-top: 4px;">
+                        Estimate gold cost with optional making & wastage charges
+                    </p>
+                </div>
+
+                <form class="calculator-form" id="gold-calculator-form" onsubmit="event.preventDefault();">
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label for="calc-weight">Weight</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="calc-weight" class="form-control" value="8" min="0" step="0.01" required>
+                                <span class="input-suffix" id="weight-unit-label">g</span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="calc-unit">Weight Unit</label>
+                            <select id="calc-unit" class="form-control">
+                                <option value="gram" selected>Grams (g)</option>
+                                <option value="sovereign">Sovereigns (Pavan)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group-row">
+                        <div class="form-group">
+                            <label for="calc-karat">Karat Purity</label>
+                            <select id="calc-karat" class="form-control">
+                                <option value="24">24K (99.9%)</option>
+                                <option value="22" selected>22K (91.6% - 916)</option>
+                                <option value="21">21K (87.5%)</option>
+                                <option value="18">18K (75.0%)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="calc-charges">Making / Wastage</label>
+                            <div class="input-wrapper">
+                                <input type="number" id="calc-charges" class="form-control" value="0" min="0" max="100" step="0.5">
+                                <span class="input-suffix">%</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calculator Live Output -->
+                    <div class="calc-output">
+                        <div class="calc-breakdown">
+                            <div class="breakdown-row">
+                                <span>Base Gold Price:</span>
+                                <span class="breakdown-val" id="out-base-price">Rs. 353,200</span>
+                            </div>
+                            <div class="breakdown-row">
+                                <span>Jeweler Charges (<span id="out-charge-pct">0</span>%):</span>
+                                <span class="breakdown-val" id="out-charge-cost">Rs. 0</span>
+                            </div>
+                        </div>
+                        <div class="result-row">
+                            <span class="result-label">Estimated Price:</span>
+                            <span class="result-price" id="out-total-price">Rs. 353,200</span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+        </section>
+
+        <!-- Sri Lankan Gold Market Guide / FAQs -->
+        <section class="faq-section">
+            <h2 class="faq-title">Sri Lanka Gold Buying Guide & <span class="gold-gradient-text">FAQ</span></h2>
+            
+            <div class="faq-list">
+                <!-- FAQ Item 1 -->
+                <div class="faq-item">
+                    <button class="faq-question-btn" aria-expanded="false">
+                        <span>What is a Sovereign (Pavan/Pawn) in Sri Lanka?</span>
+                        <div class="faq-icon-wrapper"><i class="fa-solid fa-chevron-down"></i></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            In Sri Lanka, a sovereign (locally known as a "Pavan" or "Pawn") is a traditional unit of gold weight derived from British sovereign coins. It is exactly equal to <strong>8 grams</strong>. Local jewelers routinely price gold necklaces, rings, and bangles in terms of Pavans (e.g. 1 Pavan, 2 Pavans, etc.).
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 2 -->
+                <div class="faq-item">
+                    <button class="faq-question-btn" aria-expanded="false">
+                        <span>Why does the price of jewelry differ from the raw gold price?</span>
+                        <div class="faq-icon-wrapper"><i class="fa-solid fa-chevron-down"></i></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            When buying jewelry, the jeweler adds a crafting cost known as **"making charges"** (or wastage/wastage percentage, locally referred to as *handicraft charges* or *'adum kuli'*). These charges typically add 5% to 25% on top of the base gold weight price depending on the complexity of the craftsmanship. Our interactive calculator lets you factor this in easily.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 3 -->
+                <div class="faq-item">
+                    <button class="faq-question-btn" aria-expanded="false">
+                        <span>What is 22K (916) Gold and why is it preferred for Sri Lankan jewelry?</span>
+                        <div class="faq-icon-wrapper"><i class="fa-solid fa-chevron-down"></i></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            22K gold indicates 22 parts gold and 2 parts alloy, meaning it is <strong>91.6% pure</strong> (hence the hallmark stamp '916'). 24K gold (99.9% pure) is highly soft and delicate, making it impractical for everyday wear. 22K gold balances rich yellow color with robust durability, which is why it is the standard gold standard for bridal and traditional jewelry in Sri Lanka.
+                        </div>
+                    </div>
+                </div>
+
+                <!-- FAQ Item 4 -->
+                <div class="faq-item">
+                    <button class="faq-question-btn" aria-expanded="false">
+                        <span>How can I verify the authenticity of gold in Sri Lanka?</span>
+                        <div class="faq-icon-wrapper"><i class="fa-solid fa-chevron-down"></i></div>
+                    </button>
+                    <div class="faq-answer">
+                        <div class="faq-answer-inner">
+                            Look for the official laser hallmark inscription inside the jewelry (e.g., "916" for 22K, or stamp of recognized assayers). In Sri Lanka, you can also have your gold tested and certified for purity at the **Sri Lanka Gem and Jewellery Authority** or authorized assaying offices located in Sea Street, Colombo.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer">
+        <div class="container">
+            <div class="footer-logo">
+                <span style="font-size: 1.5rem;">🪙</span>
+                <span class="brand-name" style="font-size: 1.15rem;">Ceylon Gold <span class="gold-gradient-text">Rate</span></span>
+            </div>
+            <p>Your transparent digital companion for monitoring precious metal valuations across the island.</p>
+            <p class="footer-disclaimer">
+                Disclaimer: The market rates displayed on this dashboard are simulated estimations seeded by current Sri Lankan retail price indexes. These prices represent standard averages and are intended solely for educational, tracking, and illustrative purposes. Do not make critical investment decisions without consulting a certified jeweler or local financial institution.
+            </p>
+            <p class="footer-copy">
+                &copy; 2026 Ceylon Gold Rate. All rights reserved. Created in pair with Antigravity.
+            </p>
+        </div>
+    </footer>
+
+    <!-- App Script -->
+    <script src="app.js"></script>
+</body>
+</html>
