@@ -1,0 +1,54 @@
+name: Scheduled Daily Gold Scraper
+
+on:
+  schedule:
+    # Run once everyday at 00:30 UTC (6:00 AM Sri Lanka Time, UTC+5:30)
+    - cron: '30 0 * * *'
+  # Allow manual trigger from the GitHub Actions tab
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: '8.2'
+          extensions: curl, json
+
+      - name: Remove Old Cache (Force Scrape)
+        run: rm -f rates_cache.json
+
+      - name: Run Scraper
+        run: php api.php
+
+      - name: Commit and Push Changes
+        run: |
+          git config --global user.email "scraper-action@github.com"
+          git config --global user.name "GitHub Scraper Action"
+          
+          # Check if the cache file was updated/created
+          if [ -f rates_cache.json ]; then
+            git add rates_cache.json
+            
+            # Check if there are changes to commit
+            if git diff --cached --quiet; then
+              echo "No changes in gold rates today. Skipping push."
+            else
+              git commit -m "Auto-update gold prices: $(date -u)"
+              git push origin HEAD:main
+            fi
+          else
+            echo "rates_cache.json was not generated!"
+            exit 1
+          fi

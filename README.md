@@ -20,6 +20,7 @@ Designed for high-performance and seamless hosting locally under XAMPP or in pro
 
 *   **Real-Time Scraper Backend (`api.php`)**: Dynamically parses the latest retail gold indexes in Sri Lanka using server-side cURL requests.
 *   **4-Hour Caching Layer (`rates_cache.json`)**: Caches scraped JSON datasets to optimize site performance, reduce server loading times (<15ms), and prevent IP address rate limits. Includes automatic expired-cache fallbacks if the internet or source site goes offline.
+*   **Automated Scheduled Daily Scraping (GitHub Actions)**: A scheduled daily GitHub Action workflow automatically runs the scraper at 6:00 AM Sri Lankan Time everyday, commits the fresh `rates_cache.json` back to the repository, and auto-deploys it to Hugging Face Spaces. This guarantees visitors always load pre-scraped, instantaneous rates.
 *   **Intelligent Value Calculator**: Instantly computes raw base gold prices by converting between Grams and Sovereigns (1 sovereign = 8 grams) and Karats (24K, 22K, 21K, 18K). It allows buyers to input customizable making/wastage charges (0%–100%) to estimate the true retail cost.
 *   **Dynamic Trend Charts**: Integrates Chart.js to map up to 50 days of real, parsed historical prices. Supports 7D, 30D, and 50D (1Y) period filters with neon gold gradients.
 *   **Theme Adaptation Engine**: Seamlessly shifts typography gridlines, card backgrounds, scrollbars, and Chart.js coordinates when toggling between persistent Light and Dark modes.
@@ -88,3 +89,22 @@ You can sync pushes to your GitHub repository automatically to your Hugging Face
         `git remote add hf https://dwssp:$HF_TOKEN@huggingface.co/spaces/dwssp/Ceylon-Gold-Rate`
 4.  **Push to GitHub**:
     *   Push your changes to GitHub (`main` or `master` branch) to trigger the Actions sync and deploy automatically!
+
+---
+
+## ⏰ Automated Scheduled Daily Scraping
+
+The project is pre-configured with a daily scraper workflow (`.github/workflows/scrape.yml`) that runs automatically every day at 6:00 AM Sri Lankan Time (00:30 UTC).
+
+### How it Works:
+1. **GitHub Action Scheduled Trigger**: The workflow wakes up daily and spins up a temporary PHP environment.
+2. **Scraper Execution**: It executes `api.php` via PHP CLI, generating a fresh, fully parsed `rates_cache.json`.
+3. **Automated Commit**: It automatically commits the updated `rates_cache.json` back to the GitHub repository's `main` branch.
+4. **Auto-Deployment**: Pushing to the `main` branch automatically triggers `deploy.yml`, which deploys the freshly cached rates to Hugging Face Spaces!
+
+### Setup Requirement (Important):
+To allow the daily scraper to commit updates back to your repository:
+1. Go to your GitHub repository **Settings** -> **Actions** -> **General**.
+2. Scroll down to the **Workflow permissions** section.
+3. Select **Read and write permissions**.
+4. Click **Save**.
