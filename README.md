@@ -35,7 +35,8 @@ Designed for high-performance and seamless hosting locally under XAMPP or in pro
 Ceylon Gold Rate/
 ├── .github/
 │   └── workflows/
-│       └── deploy.yml        # CI/CD pipeline to sync repository pushes to Hugging Face
+│       ├── deploy.yml        # CI/CD pipeline to sync repository pushes to Hugging Face
+│       └── scrape.yml        # Scheduled daily gold scraper workflow
 ├── index.html                # Semantic, SEO-optimized markup
 ├── style.css                 # Premium custom variables, layouts, animations, and typography
 ├── app.js                    # Client-side reactivity, conversions, calculators, and charts
