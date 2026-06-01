@@ -437,7 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
         connectionStatus.className = 'ticker-status';
         connectionStatus.innerHTML = '<span class="pulse-dot" style="background-color: var(--warning); box-shadow: 0 0 8px var(--warning);"></span> <span>Connecting...</span>';
 
-        fetch('api.php')
+        fetch('api.php?_=' + Date.now())
             .then(response => {
                 if (!response.ok) throw new Error('API server HTTP error ' + response.status);
                 return response.json();
