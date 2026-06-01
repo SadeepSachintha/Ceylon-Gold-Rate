@@ -45,8 +45,10 @@ $default_data = [
     ]
 ];
 
-// Check if cache file exists and is still valid
-if (file_exists($cache_file) && (time() - filemtime($cache_file)) < $cache_lifetime) {
+// Check if cache file exists and is still valid (unless forced)
+$force_refresh = isset($_GET['force']) && $_GET['force'] === 'true';
+
+if (!$force_refresh && file_exists($cache_file) && (time() - filemtime($cache_file)) < $cache_lifetime) {
     $cached_content = file_get_contents($cache_file);
     $data = json_decode($cached_content, true);
     if ($data && isset($data['rates'])) {
