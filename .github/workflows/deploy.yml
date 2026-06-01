@@ -5,12 +5,17 @@ on:
     branches:
       - main
       - master
+  workflow_run:
+    workflows: ["Scheduled Daily Gold Scraper"]
+    types:
+      - completed
   # Allow manual trigger from the GitHub Actions tab
   workflow_dispatch:
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v3
