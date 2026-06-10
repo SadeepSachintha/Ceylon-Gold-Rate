@@ -2,6 +2,7 @@
 /**
  * ========================================================================
  *   CEYLON GOLD RATE - REAL-TIME SCRAPER API
+ *   A product of SS Labz.
  *   Fetches actual gold prices in Sri Lanka from IdeaBeam Finance,
  *   implements 4-hour caching to ensure high-performance and prevent
  *   IP rate limits, and provides robust error fallbacks.

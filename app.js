@@ -1,6 +1,7 @@
 /**
  * ========================================================================
  *   CEYLON GOLD RATE - FRONTEND LOGIC & REAL-TIME API CONNECTOR
+ *   A product of SS Labz.
  *   Handles responsive dashboards, interactive cost calculators,
  *   FAQ accordions, persistent styling, and direct backend API integration
  *   for scraping live prices.

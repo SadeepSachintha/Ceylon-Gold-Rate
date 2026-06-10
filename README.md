@@ -10,6 +10,8 @@ pinned: false
 
 # 🪙 Ceylon Gold Price Tracker (Sri Lanka)
 
+### A premium product of [SS Labz](https://github.com/SadeepSachintha)
+
 A premium, responsive, real-time web application to check and estimate 22K, 24K, 21K, and 18K gold prices in Sri Lanka. It features a sophisticated glassmorphic design, persistent Dark/Light theme toggles, interactive historical trend lines, an intelligent jewelry cost calculator, and a server-side web scraper with automated caching.
 
 Designed for high-performance and seamless hosting locally under XAMPP or in production as a **Docker Space on Hugging Face**.

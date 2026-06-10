@@ -186,6 +186,29 @@ a:hover {
     font-weight: 700;
 }
 
+.brand-title-row {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.brand-badge {
+    font-size: 0.65rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 2px 6px;
+    border-radius: 4px;
+    background: linear-gradient(135deg, rgba(229, 184, 59, 0.1) 0%, rgba(194, 149, 35, 0.2) 100%);
+    border: 1px solid rgba(229, 184, 59, 0.3);
+    color: var(--gold-light);
+    display: inline-flex;
+    align-items: center;
+    height: fit-content;
+    margin-top: 2px;
+    box-shadow: 0 0 8px rgba(229, 184, 59, 0.1);
+}
+
 .brand-sub {
     font-size: 0.75rem;
     font-family: var(--font-body);
@@ -839,6 +862,17 @@ select.form-control {
     border-top: 1px solid var(--border-color);
     padding-top: 1.5rem;
     font-size: 0.775rem;
+}
+
+.footer-brand-link {
+    color: var(--gold-primary);
+    font-weight: 600;
+    transition: color var(--transition-fast), text-shadow var(--transition-fast);
+}
+
+.footer-brand-link:hover {
+    color: var(--gold-light);
+    text-shadow: 0 0 8px var(--gold-glow);
 }
 
 /* --- Micro-Animations --- */
